@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - CyberThon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
+        .animate-pulse-gentle { animation: pulse 2s ease-in-out infinite; }
+        .animate-slide-in-left { animation: slideInLeft 0.6s ease-out; }
+        .animate-slide-in-right { animation: slideInRight 0.6s ease-out; }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(239, 68, 68, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(239, 68, 68, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .youtube-gradient {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+        }
+        .play-button {
+            transition: all 0.3s ease;
+        }
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-blue-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2 animate-slide-in-left">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">C</span>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text" style="--tw-gradient-from: #60a5fa; --tw-gradient-to: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);">
+                        CyberThon
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 animate-slide-in-right">
+                    <a href="/" class="text-gray-300 hover:text-blue-400 transition-colors duration-300 font-semibold hover:border-b-2 hover:border-blue-400">Home</a>
+                    <a href="/announcements" class="text-gray-300 hover:text-blue-400 transition-colors duration-300 font-semibold hover:border-b-2 hover:border-blue-400">Announcements</a>
+                    <a href="/competitions" class="text-gray-300 hover:text-blue-400 transition-colors duration-300 font-semibold hover:border-b-2 hover:border-blue-400">Competitions</a>
+                    <a href="/support" class="text-gray-300 hover:text-blue-400 transition-colors duration-300 font-semibold hover:border-b-2 hover:border-blue-400">Support</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="hamburger-btn" class="md:hidden text-gray-300 hover:text-white transition-colors duration-300 p-2" aria-label="Toggle mobile menu">
+                    <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 bg-gray-900/95 backdrop-blur-sm border-l border-blue-500/20 z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex flex-col h-full">
+            <!-- Mobile menu header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-700">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold gradient-text" style="--tw-gradient-from: #60a5fa; --tw-gradient-to: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);">
+                        CyberThon
+                    </span>
+                </div>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+            
+            <!-- Mobile menu navigation -->
+            <nav class="flex-1 px-6 py-8">
+                <ul class="space-y-6">
+                    <li>
+                        <a href="/" class="flex items-center space-x-3 text-gray-300 font-semibold text-lg hover:text-blue-400 transition-colors duration-300 py-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/announcements" class="flex items-center space-x-3 text-gray-300 font-semibold text-lg hover:text-blue-400 transition-colors duration-300 py-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                            </svg>
+                            <span>Announcements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/competitions" class="flex items-center space-x-3 text-gray-300 font-semibold text-lg hover:text-blue-400 transition-colors duration-300 py-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                            </svg>
+                            <span>Competitions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/support" class="flex items-center space-x-3 text-gray-300 font-semibold text-lg hover:text-blue-400 transition-colors duration-300 py-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                            </svg>
+                            <span>Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile menu footer -->
+            <div class="px-6 py-6 border-t border-gray-700">
+                <div class="flex flex-col space-y-4">
+                    <a href="/register" class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full font-semibold text-center hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                        Register Now
+                    </a>
+                    <div class="flex space-x-4 justify-center">
+                        <a href="https://bit.ly/cythondiscord" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.195.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com/@cyber_thon" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-red-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="https://bit.ly/cythontwitter" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative pt-32 pb-20 bg-grid">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-red-900/20 to-orange-900/20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center mb-8">
+                <div class="w-24 h-24 youtube-gradient rounded-2xl flex items-center justify-center animate-pulse-gentle">
+                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold pb-6 bg-gradient-to-r from-red-400 to-orange-500 bg-clip-text text-transparent animate-fade-in-up">
+                Learn with CyberThon
+            </h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                Master programming and cybersecurity through our comprehensive video tutorials
+            </p>
+        </div>
+    </section>
+
+    <!-- YouTube Channel Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold pb-4 text-white">Our YouTube Channel</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Dive deep into programming concepts, cybersecurity fundamentals, and competition strategies with our expert-led tutorials
+                </p>
+            </div>
+
+            <!-- Main YouTube Card -->
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 card-hover mb-12">
+                <div class="flex flex-col lg:flex-row items-center gap-8">
+                    <div class="flex-shrink-0">
+                        <div class="w-32 h-32 youtube-gradient rounded-2xl flex items-center justify-center relative">
+                            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 text-center lg:text-left">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                            @cyber_thon
+                        </h3>
+                        <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                            Our YouTube channel is your gateway to mastering competitive programming and cybersecurity. From beginner-friendly introductions to advanced problem-solving techniques, we've got you covered with high-quality video content designed to help you excel in competitions and build real-world skills.
+                        </p>
+                        
+                        <a href="https://youtube.com/@cyber_thon" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/25">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            <span>Visit Our Channel</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tutorial Categories -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Programming Fundamentals -->
+                <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl mb-6 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Programming Fundamentals</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Master the basics of programming with step-by-step tutorials covering algorithms, data structures, and problem-solving techniques.
+                    </p>
+                </div>
+
+                <!-- Cybersecurity Essentials -->
+                <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mb-6 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Cybersecurity Essentials</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Learn cybersecurity fundamentals, ethical hacking techniques, and defensive strategies to protect digital assets.
+                    </p>
+                </div>
+
+                <!-- Competition Prep -->
+                <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 card-hover">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-6 flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Competition Strategies</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Get ready for competitions with advanced problem-solving techniques, time management tips, and winning strategies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Why Learn with Us Section -->
+    <section class="py-20 bg-gray-800/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold pb-4 text-white">Why Learn with CyberThon?</h2>
+                <p class="text-gray-400 text-lg">
+                    Our tutorials are designed by competition winners and industry experts
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Expert Instructors -->
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 card-hover text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full mb-6 flex items-center justify-center mx-auto">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Passionate Instructors</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Learn from instructors who love what they do; our development team leads with heart to ensure a great experience with our CyberThon program.
+                    </p>
+                </div>
+
+                <!-- Hands-on Learning -->
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 card-hover text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full mb-6 flex items-center justify-center mx-auto">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M 19.428 15.428 a 2 2 0 0 0 -1.022 -0.547 l -2.387 -0.477 a 6 6 0 0 0 -3.86 0.517 l -0.318 0.158 a 6 6 0 0 1 -3.86 0.517 L 6.05 15.21 a 2 2 0 0 0 -1.806 0.547 M 8 4 h 8 l -1 1 v 5.172 a 2 2 0 0 0 0.586 1.414 l 5 5 c 1.26 1.26 0.367 3.414 -1.415 3.414 H 4.828 c -1.782 0 -2.674 -2.154 -1.414 -3.414 l 5.586 -5.586 A 2 2 0 0 0 9 11 V 5 L 8 4 z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Hands-on Learning</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Practice with real-world scenarios, interactive coding challenges, and step-by-step walkthroughs that reinforce theoretical concepts.
+                    </p>
+                </div>
+
+                <!-- Regular Updates -->
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 card-hover text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full mb-6 flex items-center justify-center mx-auto">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Regular Updates</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Stay current with the latest trends, tools, and techniques in cybersecurity and competitive programming through our frequently updated content.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold gradient-text" style="--tw-gradient-from: #60a5fa; --tw-gradient-to: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);">
+                            CyberThon
+                        </span>
+                    </div>
+                    <p class="text-gray-400">
+                        Empowering the next generation of programmers and cybersecurity experts.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-blue-400 transition-colors">Home</a></li>
+                        <li><a href="/announcements" class="hover:text-blue-400 transition-colors">Announcements</a></li>
+                        <li><a href="/competitions" class="hover:text-blue-400 transition-colors">Competitions</a></li>
+                        <li><a href="/support" class="hover:text-blue-400 transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/about" class="hover:text-blue-400 transition-colors">About Us</a></li>
+                        <li><a href="/resources" class="hover:text-blue-400 transition-colors">Practice Problems</a></li>
+                        <li><a href="/tutorials" class="hover:text-blue-400 transition-colors">Tutorials</a></li>
+                        <li><a href="/support" class="hover:text-blue-400 transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://bit.ly/cythondiscord" target="_blank" class="hover:text-blue-400 transition-colors">Discord</a></li>
+                        <li><a href="https://youtube.com/@cyber_thon" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">YouTube</a></li>
+                        <li><a href="https://bit.ly/cythontwitter" target="_blank" class="hover:text-blue-400 transition-colors">Twitter</a></li>
+                        <li><a href="/newsletter" class="hover:text-blue-400 transition-colors">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 CyberThon. All rights reserved. Built for the next generation of innovators.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/mobile-nav.js"></script>
+</body>
+</html>
